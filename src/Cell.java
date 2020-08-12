@@ -1,34 +1,21 @@
 import java.awt.*;
 
-class Cell{
-    // fields
-    int x;
-    int y;
+class Cell extends Rectangle {
     static int size = 35;
 
-    //constructors
-    public Cell(int x, int y){
-        this.x = x;
-        this.y = y;
+    // constructors
+    public Cell(int x, int y) {
+        super(x, y, size, size);
     }
 
-    //methods
-    void paint(Graphics g, Point mousePos){
-        if(contains(mousePos)){
-            g.setColor(Color.GRAY);
-        } else {
-            g.setColor(Color.WHITE);
-        }
-        g.fillRect(x,y,size,size);
+    // methods
+    void paint(Graphics g, Point mousePos) {
+        // Check mouse highlight before fill
+        g.setColor((mousePos != null) && (contains(mousePos)) ? Color.GRAY : Color.WHITE);
+        g.fillRect(x, y, size, size);
+        // Stroke border
         g.setColor(Color.BLACK);
-        g.drawRect(x,y,size,size);
+        g.drawRect(x, y, size, size);
     }
 
-    boolean contains(Point p){
-        if (p != null){
-            return (x < p.x && x+size > p.x && y < p.y && y+size > p.y);
-        } else {
-            return false;
-        }
-    }
 }
